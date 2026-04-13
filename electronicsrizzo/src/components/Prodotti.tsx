@@ -114,11 +114,11 @@ export default function Prodotti() {
         <div className="relative mb-12 sm:mb-16 overflow-hidden reveal">
           <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-linear-to-r from-gray-50 to-transparent pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-linear-to-l from-gray-50 to-transparent pointer-events-none" />
-          <div className="flex animate-marquee gap-4 items-stretch">
+          <div className="animate-marquee">
             {[...brands, ...brands].map((brand, i) => (
               <div
                 key={i}
-                className="flex flex-col items-center justify-center gap-2 shrink-0 w-40 h-24 px-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-0.5 transition-all duration-300"
+                className="flex flex-col items-center justify-center gap-2 shrink-0 w-40 h-24 px-4 mr-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-0.5 transition-all duration-300"
               >
                 {brand.logo ? (
                   // eslint-disable-next-line @next/next/no-img-element

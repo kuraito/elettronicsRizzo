@@ -177,14 +177,17 @@ body {
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
 
-/* Brand marquee */
+/* Brand marquee — 23 brands × (160px card + 16px gap) = 4048px per set */
 @keyframes marquee {
   from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
+  to { transform: translateX(-4048px); }
 }
 
 .animate-marquee {
-  animation: marquee 35s linear infinite;
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 18s linear infinite;
 }
 
 .animate-marquee:hover {
