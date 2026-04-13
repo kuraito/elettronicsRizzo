@@ -139,13 +139,10 @@ export default function Footer() {
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-gray-500">
-            <p>
-              © {new Date().getFullYear()} Electronics Rizzo. Tutti i diritti
-              riservati.
-            </p>
-            <div className="flex items-center gap-4">
-              <p className="flex items-center gap-1">
-                Via Velina, 116 - Velina (SA) - P.IVA: XXXXXXXXXXX
+            <div className="flex items-center gap-3">
+              <p>
+                © {new Date().getFullYear()} Electronics Rizzo. Tutti i diritti
+                riservati.
               </p>
               <Link
                 href="/login"
@@ -158,6 +155,9 @@ export default function Footer() {
                 Admin
               </Link>
             </div>
+            <p className="flex items-center gap-1">
+              Via Velina, 116 - Velina (SA)
+            </p>
           </div>
         </div>
       </div>
