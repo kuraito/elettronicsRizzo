@@ -1,0 +1,80 @@
+[
+  {
+    "giorno": "Lunedì",
+    "chiuso": false,
+    "mattina": {
+      "apertura": "10:30",
+      "chiusura": "13:00"
+    },
+    "pomeriggio": {
+      "apertura": "16:00",
+      "chiusura": "20:00"
+    }
+  },
+  {
+    "giorno": "Martedì",
+    "chiuso": true,
+    "mattina": {
+      "apertura": "07:30",
+      "chiusura": "13:00"
+    },
+    "pomeriggio": {
+      "apertura": "16:00",
+      "chiusura": "20:00"
+    }
+  },
+  {
+    "giorno": "Mercoledì",
+    "chiuso": true,
+    "mattina": {
+      "apertura": "07:30",
+      "chiusura": "13:00"
+    },
+    "pomeriggio": {
+      "apertura": "16:00",
+      "chiusura": "20:00"
+    }
+  },
+  {
+    "giorno": "Giovedì",
+    "chiuso": true,
+    "mattina": {
+      "apertura": "07:30",
+      "chiusura": "13:00"
+    },
+    "pomeriggio": {
+      "apertura": "16:00",
+      "chiusura": "20:00"
+    }
+  },
+  {
+    "giorno": "Venerdì",
+    "chiuso": false,
+    "mattina": {
+      "apertura": "07:30",
+      "chiusura": "13:00"
+    },
+    "pomeriggio": {
+      "apertura": "17:00",
+      "chiusura": "20:00"
+    }
+  },
+  {
+    "giorno": "Sabato",
+    "chiuso": false,
+    "mattina": {
+      "apertura": "07:30",
+      "chiusura": "13:00"
+    },
+    "pomeriggio": null
+  },
+  {
+    "giorno": "Domenica",
+    "chiuso": true,
+    "mattina": {
+      "apertura": "",
+      "chiusura": ""
+    },
+    "pomeriggio": null
+  }
+]

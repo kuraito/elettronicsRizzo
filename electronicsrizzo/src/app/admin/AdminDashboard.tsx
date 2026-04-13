@@ -4,9 +4,11 @@ import { useState, useTransition } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import ProductForm from "@/components/admin/ProductForm";
+import OrariEditor from "@/components/admin/OrariEditor";
 import { Toast, useToast } from "@/components/Toast";
 import { createProduct, updateProduct, deleteProduct } from "@/app/actions/products";
 import type { Product } from "@/types";
+import type { GiornoOrario } from "@/lib/orari";
 
 type ModalState =
   | { type: "create" }
@@ -16,10 +18,13 @@ type ModalState =
 
 export default function AdminDashboard({
   initialProducts,
+  initialOrari,
 }: {
   initialProducts: Product[];
+  initialOrari: GiornoOrario[];
 }) {
   const router = useRouter();
+  const [tab, setTab] = useState<"prodotti" | "orari">("prodotti");
   const [modal, setModal] = useState<ModalState>(null);
   const [isPendingDelete, startDeleteTransition] = useTransition();
   const { toast, show, hide } = useToast();
@@ -56,6 +61,44 @@ export default function AdminDashboard({
 
   return (
     <>
+      {/* Tabs */}
+      <div className="flex gap-1 p-1 bg-gray-100 rounded-xl mb-6 w-fit">
+        <button
+          onClick={() => setTab("prodotti")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+            tab === "prodotti"
+              ? "bg-white text-gray-900 shadow-sm"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+          Prodotti
+        </button>
+        <button
+          onClick={() => setTab("orari")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
+            tab === "orari"
+              ? "bg-white text-gray-900 shadow-sm"
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          Orari di Apertura
+        </button>
+      </div>
+
+      {/* Tab: Orari */}
+      {tab === "orari" && (
+        <OrariEditor initialOrari={initialOrari} />
+      )}
+
+      {/* Tab: Prodotti */}
+      {tab === "prodotti" && <>
+
       {/* Header row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <h1 className="text-xl font-bold text-gray-900">Gestione Prodotti</h1>
@@ -334,6 +377,8 @@ export default function AdminDashboard({
           </div>
         </div>
       )}
+
+      </>}
 
       {/* Toast */}
       {toast && (

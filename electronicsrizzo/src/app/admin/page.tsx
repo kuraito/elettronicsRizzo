@@ -1,4 +1,5 @@
 import { getProducts } from "@/app/actions/products";
+import { getOrari } from "@/lib/orari";
 import AdminDashboard from "./AdminDashboard";
 
 export const metadata = {
@@ -6,7 +7,10 @@ export const metadata = {
 };
 
 export default async function AdminPage() {
-  const products = await getProducts();
+  const [products, orari] = await Promise.all([
+    getProducts(),
+    Promise.resolve(getOrari()),
+  ]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -36,7 +40,7 @@ export default async function AdminPage() {
         </div>
       </div>
 
-      <AdminDashboard initialProducts={products} />
+      <AdminDashboard initialProducts={products} initialOrari={orari} />
     </div>
   );
 }

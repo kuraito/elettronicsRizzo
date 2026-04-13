@@ -1,22 +1,22 @@
-"use client";
-
 import Hero from "@/components/Hero";
 import ChiSiamo from "@/components/ChiSiamo";
 import Prodotti from "@/components/Prodotti";
 import Recensioni from "@/components/Recensioni";
 import Contatti from "@/components/Contatti";
-import { useScrollReveal } from "@/hooks/useScrollReveal";
+import ScrollRevealTrigger from "@/components/ScrollRevealTrigger";
+import { getOrari } from "@/lib/orari";
 
 export default function Home() {
-  useScrollReveal();
+  const orari = getOrari();
 
   return (
     <>
+      <ScrollRevealTrigger />
       <Hero />
       <ChiSiamo />
       <Prodotti />
       <Recensioni />
-      <Contatti />
+      <Contatti orari={orari} />
     </>
   );
 }

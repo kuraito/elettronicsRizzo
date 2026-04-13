@@ -1,14 +1,6 @@
-const orari = [
-  { giorno: "Lunedì", orario: "07:30 - 13:00 / 16:00 - 20:00" },
-  { giorno: "Martedì", orario: "07:30 - 13:00 / 16:00 - 20:00" },
-  { giorno: "Mercoledì", orario: "07:30 - 13:00 / 16:00 - 20:00" },
-  { giorno: "Giovedì", orario: "07:30 - 13:00 / 16:00 - 20:00" },
-  { giorno: "Venerdì", orario: "07:30 - 13:00 / 16:00 - 20:00" },
-  { giorno: "Sabato", orario: "07:30 - 13:00 / 16:00 - 20:00" },
-  { giorno: "Domenica", orario: "Chiuso" },
-];
+import { type GiornoOrario, formatOrario } from "@/lib/orari";
 
-export default function Contatti() {
+export default function Contatti({ orari }: { orari: GiornoOrario[] }) {
   return (
     <section id="contatti" className="py-16 sm:py-20 lg:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,16 +98,16 @@ export default function Contatti() {
                   <div
                     key={o.giorno}
                     className={`flex justify-between items-center py-2 px-3 rounded-lg text-sm ${
-                      o.giorno === "Domenica"
-                        ? "bg-red-50 text-red-600"
+                      o.chiuso
+                        ? "bg-red-50"
                         : "hover:bg-gray-50"
                     }`}
                   >
-                    <span className={`font-medium ${o.giorno === "Domenica" ? "text-red-600" : "text-gray-700"}`}>
+                    <span className={`font-medium ${o.chiuso ? "text-red-600" : "text-gray-700"}`}>
                       {o.giorno}
                     </span>
-                    <span className={o.giorno === "Domenica" ? "text-red-500 font-medium text-xs sm:text-sm" : "text-gray-600 text-xs sm:text-sm"}>
-                      {o.orario}
+                    <span className={o.chiuso ? "text-red-500 font-medium text-xs sm:text-sm" : "text-gray-600 text-xs sm:text-sm"}>
+                      {formatOrario(o)}
                     </span>
                   </div>
                 ))}
