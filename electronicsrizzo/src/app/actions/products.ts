@@ -117,5 +117,50 @@ export async function deleteProduct(id: string): Promise<ActionResult> {
 
   revalidatePath("/prodotti");
   revalidatePath("/admin");
+  revalidatePath("/");
   return { success: true, message: "Prodotto eliminato" };
+}
+
+export async function toggleFeatured(
+  id: string,
+  currentValue: boolean
+): Promise<ActionResult> {
+  const supabase = await createClient();
+
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) return { success: false, error: "Non sei autorizzato." };
+
+  // Se stiamo mettendo in evidenza, controlla il limite di 5
+  if (!currentValue) {
+    const { count } = await supabase
+      .from("products")
+      .select("*", { count: "exact", head: true })
+      .eq("featured", true);
+    if ((count ?? 0) >= 5) {
+      return { success: false, error: "Puoi selezionare al massimo 5 prodotti in evidenza." };
+    }
+  }
+
+  const { error } = await supabase
+    .from("products")
+    .update({ featured: !currentValue })
+    .eq("id", id);
+
+  if (error) return { success: false, error: handleSupabaseError(error, "toggleFeatured") };
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  return { success: true, message: !currentValue ? "Prodotto in evidenza" : "Prodotto rimosso dall'evidenza" };
+}
+
+export async function getFeaturedProducts() {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("products")
+    .select("*")
+    .eq("featured", true)
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(handleSupabaseError(error, "getFeaturedProducts"));
+  return data;
 }

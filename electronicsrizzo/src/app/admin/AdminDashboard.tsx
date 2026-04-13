@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import ProductForm from "@/components/admin/ProductForm";
 import OrariEditor from "@/components/admin/OrariEditor";
 import { Toast, useToast } from "@/components/Toast";
-import { createProduct, updateProduct, deleteProduct } from "@/app/actions/products";
+import { createProduct, updateProduct, deleteProduct, toggleFeatured } from "@/app/actions/products";
 import type { Product } from "@/types";
 import type { GiornoOrario } from "@/lib/orari";
 
@@ -27,8 +27,23 @@ export default function AdminDashboard({
   const [tab, setTab] = useState<"prodotti" | "orari">("prodotti");
   const [modal, setModal] = useState<ModalState>(null);
   const [isPendingDelete, startDeleteTransition] = useTransition();
+  const [isPendingFeatured, startFeaturedTransition] = useTransition();
   const { toast, show, hide } = useToast();
   const [search, setSearch] = useState("");
+
+  const featuredCount = initialProducts.filter((p) => p.featured).length;
+
+  function handleToggleFeatured(product: Product) {
+    startFeaturedTransition(async () => {
+      const result = await toggleFeatured(product.id, product.featured);
+      if (result.success) {
+        show(result.message, "success");
+        router.refresh();
+      } else {
+        show(result.error, "error");
+      }
+    });
+  }
 
   const filtered = initialProducts.filter(
     (p) =>
@@ -101,7 +116,12 @@ export default function AdminDashboard({
 
       {/* Header row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-        <h1 className="text-xl font-bold text-gray-900">Gestione Prodotti</h1>
+        <div>
+          <h1 className="text-xl font-bold text-gray-900">Gestione Prodotti</h1>
+          <p className="text-xs text-gray-400 mt-0.5">
+            <span className={featuredCount >= 5 ? "text-amber-500 font-semibold" : ""}>{featuredCount}/5</span> prodotti in evidenza in homepage
+          </p>
+        </div>
         <div className="flex items-center gap-3">
           <div className="relative flex-1 sm:flex-none">
             <svg
@@ -148,7 +168,16 @@ export default function AdminDashboard({
       </div>
 
       {/* Products table */}
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="relative bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+        {isPendingFeatured && (
+          <div className="absolute inset-0 z-10 bg-white/70 backdrop-blur-sm flex flex-col items-center justify-center gap-3 rounded-2xl">
+            <svg className="w-7 h-7 text-primary-600 animate-spin" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+            </svg>
+            <span className="text-sm font-medium text-gray-600">Aggiornamento in corso...</span>
+          </div>
+        )}
         {filtered.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
             {search ? "Nessun risultato" : "Nessun prodotto. Crea il primo!"}
@@ -166,6 +195,9 @@ export default function AdminDashboard({
                   </th>
                   <th className="text-left text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">
                     Prezzo
+                  </th>
+                  <th className="text-center text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-3">
+                    Evidenza
                   </th>
                   <th className="text-right text-xs font-semibold text-gray-500 uppercase tracking-wider px-5 py-3">
                     Azioni
@@ -226,6 +258,24 @@ export default function AdminDashboard({
                       <span className="font-semibold text-primary-700 text-sm">
                         {product.price}
                       </span>
+                    </td>
+                    <td className="px-3 py-4">
+                      <div className="flex justify-center">
+                        <button
+                          onClick={() => handleToggleFeatured(product)}
+                          disabled={isPendingFeatured}
+                          title={product.featured ? "Rimuovi dall'evidenza" : featuredCount >= 5 ? "Limite di 5 raggiunto" : "Metti in evidenza"}
+                          className={`p-1.5 rounded-lg transition-all ${
+                            product.featured
+                              ? "text-amber-400 hover:text-amber-500 hover:bg-amber-50"
+                              : "text-gray-300 hover:text-amber-400 hover:bg-amber-50"
+                          }`}
+                        >
+                          <svg className="w-5 h-5" fill={product.featured ? "currentColor" : "none"} viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                          </svg>
+                        </button>
+                      </div>
                     </td>
                     <td className="px-5 py-4">
                       <div className="flex items-center justify-end gap-2">

@@ -6,9 +6,10 @@ export interface Product {
   image_url: string | null;
   category: string;
   created_at: string;
+  featured: boolean;
 }
 
-export type ProductInsert = Omit<Product, "id" | "created_at">;
+export type ProductInsert = Omit<Product, "id" | "created_at" | "featured">;
 export type ProductUpdate = Partial<ProductInsert>;
 
 export type ActionResult =
