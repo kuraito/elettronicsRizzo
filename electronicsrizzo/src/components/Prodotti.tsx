@@ -1,3 +1,29 @@
+const brands: { name: string; logo?: string }[] = [
+  { name: "BTicino",             logo: "/logos/bticino.svg" },
+  { name: "Vimar" },
+  { name: "Gewiss" },
+  { name: "ABB",                 logo: "/logos/abb.svg" },
+  { name: "Schneider Electric",  logo: "/logos/schneider.svg" },
+  { name: "Finder" },
+  { name: "Samsung",             logo: "/logos/samsung.svg" },
+  { name: "LG",                  logo: "/logos/lg.svg" },
+  { name: "Bosch",               logo: "/logos/bosch.svg" },
+  { name: "Whirlpool",           logo: "/logos/whirlpool.svg" },
+  { name: "Electrolux",          logo: "/logos/electrolux.svg" },
+  { name: "Indesit",             logo: "/logos/indesit.svg" },
+  { name: "De'Longhi",           logo: "/logos/delonghi.svg" },
+  { name: "Philips",             logo: "/logos/philips.svg" },
+  { name: "Osram",               logo: "/logos/osram.svg" },
+  { name: "Artemide",            logo: "/logos/artemide.svg" },
+  { name: "Flos" },
+  { name: "Eglo",                logo: "/logos/eglo.svg" },
+  { name: "V-TAC" },
+  { name: "Daikin",              logo: "/logos/daikin.svg" },
+  { name: "Mitsubishi Electric", logo: "/logos/mitsubishi.svg" },
+  { name: "Hisense",             logo: "/logos/hisense.svg" },
+  { name: "Ariston",             logo: "/logos/ariston.svg" },
+];
+
 const categories = [
   {
     title: "Materiale Elettrico",
@@ -82,6 +108,33 @@ export default function Prodotti() {
             Dalle soluzioni elettriche professionali all&apos;illuminazione
             d&apos;interni ed esterni.
           </p>
+        </div>
+
+        {/* Brand marquee */}
+        <div className="relative mb-12 sm:mb-16 overflow-hidden reveal">
+          <div className="absolute left-0 top-0 bottom-0 w-20 z-10 bg-linear-to-r from-gray-50 to-transparent pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-20 z-10 bg-linear-to-l from-gray-50 to-transparent pointer-events-none" />
+          <div className="flex animate-marquee gap-4 items-stretch">
+            {[...brands, ...brands].map((brand, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center justify-center gap-2 shrink-0 w-40 h-24 px-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:border-primary-200 hover:-translate-y-0.5 transition-all duration-300"
+              >
+                {brand.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={brand.logo}
+                    alt={brand.name}
+                    className="max-h-12 max-w-[120px] w-auto object-contain"
+                  />
+                ) : (
+                  <span className="text-sm font-bold text-gray-600 text-center leading-tight px-1">
+                    {brand.name}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Product categories */}
