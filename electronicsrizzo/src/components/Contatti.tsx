@@ -114,7 +114,7 @@ export default function Contatti() {
                     <span className={`font-medium ${o.giorno === "Domenica" ? "text-red-600" : "text-gray-700"}`}>
                       {o.giorno}
                     </span>
-                    <span className={o.giorno === "Domenica" ? "text-red-500 font-medium" : "text-gray-600"}>
+                    <span className={o.giorno === "Domenica" ? "text-red-500 font-medium text-xs sm:text-sm" : "text-gray-600 text-xs sm:text-sm"}>
                       {o.orario}
                     </span>
                   </div>

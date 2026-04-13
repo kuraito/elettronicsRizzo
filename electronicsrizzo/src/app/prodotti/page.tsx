@@ -15,7 +15,7 @@ export default async function ProdottiPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-linear-to-br from-primary-900 via-primary-800 to-primary-950 pt-28 pb-14 px-4">
+      <div className="bg-linear-to-br from-primary-900 via-primary-800 to-primary-950 pt-20 sm:pt-24 lg:pt-28 pb-10 sm:pb-14 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <Link
             href="/"

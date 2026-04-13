@@ -67,14 +67,14 @@ export default function Navbar() {
               height={150}
               className="w-36 h-36 sm:w-38 sm:h-38 object-contain"
             />
-            <div className="flex flex-col">
+            <div className="flex flex-col min-w-0">
               <span
-                className="text-base sm:text-lg font-bold leading-tight text-white"
+                className="text-base sm:text-lg font-bold leading-tight text-white truncate"
               >
                 Electronics Rizzo
               </span>
               <span
-                className="text-[10px] sm:text-xs leading-tight text-primary-200"
+                className="hidden sm:block text-xs leading-tight text-primary-200"
               >
                 Materiale Elettrico & Elettrodomestici
               </span>
