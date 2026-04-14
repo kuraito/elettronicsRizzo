@@ -53,7 +53,7 @@ export default function RootLayout({
     >
       <head>
         <meta name="theme-color" content="#1e40af" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/logo.png" />
       </head>
       <body className="min-h-full flex flex-col">
         <Navbar />

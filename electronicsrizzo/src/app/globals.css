@@ -177,6 +177,27 @@ body {
 .delay-400 { transition-delay: 400ms; }
 .delay-500 { transition-delay: 500ms; }
 
+/* Hero background position */
+.hero-bg-position {
+  background-position: 60% center;
+}
+@media (min-width: 640px) {
+  .hero-bg-position {
+    background-position: center;
+  }
+}
+
+/* Hero background Ken Burns */
+@keyframes hero-zoom {
+  from { transform: scale(1.15); }
+  to   { transform: scale(1.25); }
+}
+
+.animate-hero-zoom {
+  animation: hero-zoom 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
 /* Brand marquee — 23 brands × (160px card + 16px gap) = 4048px per set */
 @keyframes marquee {
   from { transform: translateX(0); }

@@ -4,8 +4,14 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-linear-to-br from-primary-900 via-primary-800 to-primary-950" />
+      {/* Background photo with Ken Burns zoom */}
+      <div
+        className="absolute inset-0 bg-cover animate-hero-zoom hero-bg-position"
+        style={{ backgroundImage: "url('/sfondo.png')" }}
+      />
+
+      {/* Blue gradient overlay — lascia trasparire leggermente la foto */}
+      <div className="absolute inset-0 bg-linear-to-br from-primary-900/90 via-primary-800/85 to-primary-950/92" />
 
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden">
