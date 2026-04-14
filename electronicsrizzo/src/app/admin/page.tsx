@@ -9,7 +9,7 @@ export const metadata = {
 export default async function AdminPage() {
   const [products, orari] = await Promise.all([
     getProducts(),
-    Promise.resolve(getOrari()),
+    getOrari(),
   ]);
 
   return (

@@ -9,7 +9,7 @@ import { getFeaturedProducts } from "@/app/actions/products";
 
 export default async function Home() {
   const [orari, featuredProducts] = await Promise.all([
-    Promise.resolve(getOrari()),
+    getOrari(),
     getFeaturedProducts(),
   ]);
 

@@ -10,17 +10,16 @@ export async function updateOrari(
   orari: GiornoOrario[]
 ): Promise<{ success: true } | { success: false; error: string }> {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  const { data: { user } } = await supabase.auth.getUser();
   if (!user) return { success: false, error: "Non autorizzato" };
 
   try {
-    saveOrari(orari);
+    await saveOrari(orari);
     revalidatePath("/");
+    revalidatePath("/admin");
     return { success: true };
-  } catch {
-    return { success: false, error: "Errore nel salvataggio degli orari" };
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : "Errore nel salvataggio degli orari";
+    return { success: false, error: msg };
   }
 }
