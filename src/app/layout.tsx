@@ -50,6 +50,7 @@ export default function RootLayout({
     <html
       lang="it"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
     >
       <head>
         <meta name="theme-color" content="#1e40af" />

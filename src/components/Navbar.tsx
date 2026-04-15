@@ -66,6 +66,8 @@ export default function Navbar() {
               width={150}
               height={150}
               className="w-36 h-36 sm:w-38 sm:h-38 object-contain"
+              loading="eager"
+              priority
             />
             <div className="flex flex-col min-w-0">
               <span

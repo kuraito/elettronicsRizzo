@@ -161,6 +161,28 @@ export default function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Developer credit */}
+      <div className="border-t border-gray-800/50 bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <a
+            href="https://kuraito.github.io/newWebPortfolio/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center justify-center gap-2 text-xs text-gray-600 hover:text-gray-400 transition-colors duration-300"
+          >
+            <svg className="w-3.5 h-3.5 text-gray-700 group-hover:text-primary-500 transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+            </svg>
+            <span>
+              Sviluppato da{" "}
+              <span className="font-semibold text-gray-500 group-hover:text-primary-400 transition-colors duration-300">
+                Giuseppe Sabia
+              </span>
+            </span>
+          </a>
+        </div>
+      </div>
     </footer>
   );
 }
